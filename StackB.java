@@ -1,36 +1,40 @@
 import java.util.Stack;
 
 public class StackB {
-    public static void nexGreaterElement(int arr[]){
-        Stack<Integer> s = new Stack<>();
-        int nexGreater [] = new int[arr.length];
+    public static boolean isValid(String str){
+        Stack<Character> s = new Stack<>();
+        
+        for(int i = 0; i<str.length(); i++){
+            char ch = str.charAt(i);
 
-        for(int i=arr.length-1; i>=0; i--){
-            while(!s.isEmpty() && arr[s.peek()] <= arr[i]){
-                s.pop();
+            if( ch == '(' || ch == '{' || ch == '['){
+                s.push(ch);
+            }else{
+                if(s.isEmpty()){
+                    return false;
+                }
+                if( (s.peek() == '(' && ch == ')')
+                 || (s.peek() == '{' && ch == '}')
+                 || (s.peek() == '[' && ch == ']')){
+                        s.pop();
+                 } else {
+                    return false;
+                 }
             }
+        }
 
-            if( s.isEmpty()){
-                nexGreater[i] = -1;
-            }else {
-                nexGreater[i] = arr[s.peek()];
-            }
-            s.push(i);
+        if(s.isEmpty()){
+            return true;
+        }else {
+            return false;
         }
-        for(int i=0; i< nexGreater.length; i++){
-            System.out.print(nexGreater[i]+" ");
-        }
+        
     }
    
 
 
     public static void main(String[] args) {
-      int arr [] = {6,8,0,1,3};
-      
-
-      nexGreaterElement(arr);
-
-
-       
+      String str = "(({})[])";
+      System.out.println(isValid(str));
     }
 }
