@@ -1,36 +1,36 @@
 import java.util.Stack;
 
 public class StackB {
-    public static void stockSpan(int stocks[], int span[]){
+    public static void nexGreaterElement(int arr[]){
         Stack<Integer> s = new Stack<>();
-        span[0] = 1;
-        s.push(0);
+        int nexGreater [] = new int[arr.length];
 
-        for(int i=1; i<stocks.length; i++){
-            int currPrice = stocks[i];
-            while(!s.isEmpty() && currPrice > stocks[s.peek()]){
+        for(int i=arr.length-1; i>=0; i--){
+            while(!s.isEmpty() && arr[s.peek()] <= arr[i]){
                 s.pop();
             }
-            if(s.isEmpty()) {
-                span[i] = i+1;
-            } else {
-                int prevHigh = s.peek();
-                span[i] = i - prevHigh;
+
+            if( s.isEmpty()){
+                nexGreater[i] = -1;
+            }else {
+                nexGreater[i] = arr[s.peek()];
             }
             s.push(i);
+        }
+        for(int i=0; i< nexGreater.length; i++){
+            System.out.print(nexGreater[i]+" ");
         }
     }
    
 
 
     public static void main(String[] args) {
-       int stocks [] = {100,80,60,70,60,85,100};
-       int span [] = new int[stocks.length];
-       stockSpan(stocks, span);
+      int arr [] = {6,8,0,1,3};
+      
 
-       for(int i=0; i<span.length; i++) {
-        System.out.print(span[i]+" ");
-       }
+      nexGreaterElement(arr);
+
+
        
     }
 }
