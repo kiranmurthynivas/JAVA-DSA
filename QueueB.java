@@ -1,33 +1,36 @@
-import java.util.*;
+
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class QueueB {
-    
-    public static void firstNonRepeating(String str) {
-        int freq[] = new int[26];
-        Queue<Character> q = new LinkedList<>();
+    public static void inetrLeave(Queue<Integer> q){
+    Queue<Integer> qtemp = new LinkedList<>();
 
-        for(int i = 0; i<str.length(); i++) {
-            char ch = str.charAt(i);
-            q.add(ch);
-            freq[ch-'a']++;
 
-            while(!q.isEmpty() && freq[q.peek()-'a']> 1) {
-                q.remove();
-            }
-            if( q.isEmpty()) {
-                System.out.print(-1+" ");
-            }else {
-                System.out.print(q.peek()+" ");
-            }
-        }
+    int size = q.size();
+    for(int i=0; i<size/2; i++){
+        qtemp.add(q.remove());
+    }
+
+    while(!qtemp.isEmpty()){
+        q.add(qtemp.remove());
+        q.add(q.remove());
+    }
+
+    while(!q.isEmpty()){
+        System.out.print(q.remove()+" ");
+    }
     }
     
 
     public static void main(String[] args) {
-      String str = "aabccxb";
+    Queue<Integer> q = new LinkedList<>();
+    
+    for(int i=1; i<=10; i++){
+        q.add(i);
+    }
 
-      firstNonRepeating(str);
+    inetrLeave(q);
       
     }
 
