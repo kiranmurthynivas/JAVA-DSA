@@ -1,35 +1,25 @@
 
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+
+
 
 public class QueueB {
-    public static void reverseQ(Queue<Integer> q){
-        Stack<Integer> s = new Stack<>();
-        
-        while(!q.isEmpty()){
-            s.push(q.remove());
-        }
-
-        while(!s.isEmpty()){
-           q.add(s.pop());
-        }
-
-        while(!q.isEmpty()){
-            System.out.print(q.remove()+" ");
-        }
-    }
-    
-
+  
     public static void main(String[] args) {
-    Queue<Integer> q = new LinkedList<>();
-    
-    q.add(1);
-    q.add(2);
-    q.add(3);
-    q.add(4);
-    q.add(5);
-
-    reverseQ(q);
+        Deque<Integer> deque = new LinkedList<>();
+        deque.addFirst(1);
+        deque.addFirst(2);
+        System.out.println(deque);
+        deque.removeFirst();
+        System.out.println(deque);
+        deque.addLast(3);
+        deque.addLast(4);
+        System.out.println(deque);
+        deque.removeLast();
+        System.out.println(deque);
+        System.out.println("first ele = "+ deque.getFirst());
+        System.out.println("last ele = "+ deque.getLast());
     }
+    
 }
