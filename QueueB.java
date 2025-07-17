@@ -1,37 +1,35 @@
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class QueueB {
-    public static void inetrLeave(Queue<Integer> q){
-    Queue<Integer> qtemp = new LinkedList<>();
+    public static void reverseQ(Queue<Integer> q){
+        Stack<Integer> s = new Stack<>();
+        
+        while(!q.isEmpty()){
+            s.push(q.remove());
+        }
 
+        while(!s.isEmpty()){
+           q.add(s.pop());
+        }
 
-    int size = q.size();
-    for(int i=0; i<size/2; i++){
-        qtemp.add(q.remove());
-    }
-
-    while(!qtemp.isEmpty()){
-        q.add(qtemp.remove());
-        q.add(q.remove());
-    }
-
-    while(!q.isEmpty()){
-        System.out.print(q.remove()+" ");
-    }
+        while(!q.isEmpty()){
+            System.out.print(q.remove()+" ");
+        }
     }
     
 
     public static void main(String[] args) {
     Queue<Integer> q = new LinkedList<>();
     
-    for(int i=1; i<=10; i++){
-        q.add(i);
-    }
+    q.add(1);
+    q.add(2);
+    q.add(3);
+    q.add(4);
+    q.add(5);
 
-    inetrLeave(q);
-      
+    reverseQ(q);
     }
-
 }
