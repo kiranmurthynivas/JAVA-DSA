@@ -1,31 +1,46 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
+
 
 public class GreedyAlgo {
+    static class  Job {
+        int deadline;
+        int profit;
+        int id;
+
+        public Job(int i, int d, int p){
+            id = i;
+            deadline = d;
+            profit = p;
+        }
+    }
+
     public static void main(String[] args) {
-        Integer coins[] = {1,2,5,10,20,50,100,500,2000}; 
+        Integer jobsInfo[][] = {{4, 20}, { 1, 10}, {1, 40}, {1, 30}};
 
-        Arrays.sort(coins, Comparator.reverseOrder());
+        ArrayList<Job> jobs = new ArrayList<>();
 
-        int count = 0;
-        int amount = 590;
-        ArrayList<Integer> coin = new ArrayList<>();
-
-        for(int i=0; i<coins.length;i++){
-            if(coins[i]<= amount){
-                while(coins[i]<=amount){
-                    count++;
-                    coin.add(coins[i]);
-                    amount = amount - coins[i];
-                }
-            }
+        for(int i=0; i<jobsInfo.length; i++){
+            jobs.add( new Job(i, jobsInfo[i][0], jobsInfo[i][1]));
         }
+        //Custom comparator
+        Collections.sort(jobs, (obj1, obj2) -> obj2.profit - obj1.profit);
 
-        System.out.println("Minimum number of coins = "+ count);
-        for(int i = 0; i<coin.size();i++){
-            System.out.print(coin.get(i)+" ");
-        }
+
+      int time = 0;
+      ArrayList<Integer> seq = new ArrayList<>();
+      for(int i=0; i<jobs.size();i++){
+        Job curr = jobs.get(i);
+            if(curr.deadline>time){
+                seq.add(curr.id);
+                time++;
+            } 
+      }
+
+      System.out.println("max jobs = "+time);
+      for(int i = 0; i<seq.size();i++){
+        System.out.print( seq.get(i)+" ");
+      }
+
         
     }
 }
