@@ -1,18 +1,22 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class GreedyAlgo {
     public static void main(String[] args) {
-      int A[] = {4,1,8,7};
-      int B[] = {2,3,6,5};
+      int pairs[][] = { {5,24},{39,60},{5,28},{27,40},{50,90}};
       
-      Arrays.sort(A);
-      Arrays.sort(B);
+      Arrays.sort(pairs, Comparator.comparingDouble(o -> o[1]));
 
-      int minDiff = 0;
-      for(int i=0; i<A.length; i++){
-          minDiff += Math.abs(A[i]-B[i]);
-      }
-      
-      System.out.println("min absolute difference of pairs = "+ minDiff);
+      int chainLen = 1;
+      int chainEnd = pairs[0][1];
+
+        for(int i=1; i<pairs.length; i++) {
+            if(pairs[i][0] >= chainEnd) {
+                chainLen++;
+                chainEnd = pairs[i][1];
+            }
+        }
+
+        System.out.println("Max length Chain length = "+chainLen);
     }
 }
