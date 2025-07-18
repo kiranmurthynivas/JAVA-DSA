@@ -1,33 +1,18 @@
-
-import  java.util.*;
+import java.util.*;
 
 public class GreedyAlgo {
     public static void main(String[] args) {
-      int val[] = {60, 100, 120};
-      int weigth[] = {10, 20, 30};
-      int W = 50;
+      int A[] = {4,1,8,7};
+      int B[] = {2,3,6,5};
+      
+      Arrays.sort(A);
+      Arrays.sort(B);
 
-      double ratio[][] = new double[val.length][2];
-      for(int i =0; i<val.length; i++) {
-        ratio[i][0] = i;
-        ratio[i][1] = val[i]/(double)weigth[i];
+      int minDiff = 0;
+      for(int i=0; i<A.length; i++){
+          minDiff += Math.abs(A[i]-B[i]);
       }
-
-      Arrays.sort(ratio, Comparator.comparingDouble(o -> o[1]));
-
-      int capacity = W;
-      int finalVal = 0;
-      for(int i=ratio.length-1; i>=0; i-- ) {
-        int idx = (int) ratio[i][0];
-        if(capacity >= weigth[idx]){
-            finalVal += val[idx];
-            capacity -= weigth[idx];
-        } else {
-            finalVal += (ratio[i][1] * capacity);
-            capacity = 0;
-            break;
-        }
-      }
-      System.out.println("Final value = "+finalVal);
+      
+      System.out.println("min absolute difference of pairs = "+ minDiff);
     }
 }
