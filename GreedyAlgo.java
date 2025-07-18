@@ -1,46 +1,41 @@
 import java.util.*;
 
-
 public class GreedyAlgo {
-    static class  Job {
-        int deadline;
-        int profit;
-        int id;
-
-        public Job(int i, int d, int p){
-            id = i;
-            deadline = d;
-            profit = p;
-        }
-    }
 
     public static void main(String[] args) {
-        Integer jobsInfo[][] = {{4, 20}, { 1, 10}, {1, 40}, {1, 30}};
+        int n = 4, m = 6;
+        Integer costVer[] = {2,1,3,1,4};
+        Integer costHor[] = {4,1,2};
 
-        ArrayList<Job> jobs = new ArrayList<>();
+        Arrays.sort(costVer, Collections.reverseOrder());
+        Arrays.sort(costHor, Collections.reverseOrder());
 
-        for(int i=0; i<jobsInfo.length; i++){
-            jobs.add( new Job(i, jobsInfo[i][0], jobsInfo[i][1]));
+        int h = 0, v = 0;
+        int hp = 1, vp = 1;
+        int cost = 0;
+
+        while(h < costHor.length && v < costVer.length){
+            if(costVer[v] <= costHor[h]) {
+                cost += (costHor[h] * vp);
+                hp++;
+                h++;
+            }else {
+                cost += (costVer[v] * hp);
+                vp++;
+                v++;
+            }
         }
-        //Custom comparator
-        Collections.sort(jobs, (obj1, obj2) -> obj2.profit - obj1.profit);
+        while(h < costHor.length){
+            cost += (costHor.length);
+            hp++;
+            h++;
+        }
+        while(v < costVer.length){
+            cost += (costVer[v] * hp);
+            vp++;
+            v++;
+        }
 
-
-      int time = 0;
-      ArrayList<Integer> seq = new ArrayList<>();
-      for(int i=0; i<jobs.size();i++){
-        Job curr = jobs.get(i);
-            if(curr.deadline>time){
-                seq.add(curr.id);
-                time++;
-            } 
-      }
-
-      System.out.println("max jobs = "+time);
-      for(int i = 0; i<seq.size();i++){
-        System.out.print( seq.get(i)+" ");
-      }
-
-        
+        System.out.println("Minimum cost of cuts = "+ cost);
     }
 }
