@@ -31,6 +31,17 @@ public class BinaryTreesB {
 
         return treeCount;
     }
+
+    public static  int sum(Node root) {
+        if( root == null ) {
+            return 0;
+        }
+        int lsum = sum(root.left);
+        int rsum = sum(root.right);
+        int treesum = lsum + rsum + root.data;
+
+        return treesum;
+    }
    
 
     public static void main(String[] args) {
@@ -42,7 +53,7 @@ public class BinaryTreesB {
        root.right.left = new Node(6);
        root.right.right = new Node(7);
 
-       System.out.println(count(root));
+       System.out.println(sum(root));
        
     }
 }
