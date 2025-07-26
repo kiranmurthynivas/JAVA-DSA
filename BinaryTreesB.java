@@ -1,3 +1,5 @@
+import java.util.*;
+import java.util.LinkedList;
 public class BinaryTreesB {
     static class Node {
         int data;
@@ -94,8 +96,6 @@ public class BinaryTreesB {
         return true;
     }
     
-
-   
     public static boolean isSubtree(Node root, Node subRoot) {
         if (root == null) {
             return false;
@@ -108,6 +108,56 @@ public class BinaryTreesB {
         return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
    
+    static class Tinfo {
+        Node node;
+        int hd;
+
+        public Tinfo(Node node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+
+    public static void topView(Node root) {
+
+        
+        Queue<Tinfo> q = new LinkedList<>();
+        HashMap<Integer,Node> map = new HashMap<>();
+
+        int min = 0 , max = 0;
+        q.add(new Tinfo(root, 0));
+        q.add(null);
+
+        while(!q.isEmpty()) {
+            Tinfo curr = q.remove();
+            if(curr == null ) {
+                if(q.isEmpty()) {
+                    break;
+                } else {
+                    q.add(null);
+                }
+            } else {
+                if(!map.containsKey(curr.hd)) {
+                    map.put(curr.hd, curr.node);
+                }  
+
+                if( curr.node.left != null) {
+                    q.add(new Tinfo(curr.node.left, curr.hd-1));
+                    min = Math.min(min, curr.hd-1);
+                }
+
+                if( curr.node.right != null) {
+                    q.add(new Tinfo(curr.node.right, curr.hd+1));
+                    max = Math.max(max, curr.hd+1);
+                }
+            }
+        }
+
+        for( int i = min; i<=max; i++ ) {
+            System.out.print(map.get(i).data+" ");
+        }
+        System.out.println("");
+    }
 
     public static void main(String[] args) {
        Node root = new Node(1);
@@ -118,13 +168,6 @@ public class BinaryTreesB {
        root.right.left = new Node(6);
        root.right.right = new Node(7);
 
-
-       Node subRoot = new Node(2);
-       subRoot.left = new Node(4);
-        subRoot.right = new Node(5);
-
-
-       System.out.println(isSubtree(root, subRoot));
-       
+       topView(root);
     }
 }
