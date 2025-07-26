@@ -27,9 +27,7 @@ public class BinaryTreesB {
         }
         int lcount = count(root.left);
         int rcount = count(root.right);
-        int treeCount = lcount + rcount + 1;
-
-        return treeCount;
+        return lcount + rcount + 1;
     }
 
     public static  int sum(Node root) {
@@ -38,9 +36,21 @@ public class BinaryTreesB {
         }
         int lsum = sum(root.left);
         int rsum = sum(root.right);
-        int treesum = lsum + rsum + root.data;
+        return lsum + rsum + root.data;
+    }
 
-        return treesum;
+    public static int diameter(Node root) {
+        if( root == null ) {
+            return 0;
+        }
+
+        int ldia = diameter(root.left);
+        int rdia = diameter(root.right);
+        int lh = height(root.left);
+        int rh = height(root.right);
+        int selfdia = lh + rh + 1;
+
+        return Math.max(selfdia,Math.max(ldia, rdia));
     }
    
 
@@ -53,7 +63,7 @@ public class BinaryTreesB {
        root.right.left = new Node(6);
        root.right.right = new Node(7);
 
-       System.out.println(sum(root));
+       System.out.println(diameter(root));
        
     }
 }
