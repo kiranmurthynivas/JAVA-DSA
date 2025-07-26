@@ -39,7 +39,7 @@ public class BinaryTreesB {
         return lsum + rsum + root.data;
     }
 
-    public static int diameter(Node root) {
+    public static int diameter(Node root) { //approch 1  O(n^2)
         if( root == null ) {
             return 0;
         }
@@ -52,6 +52,29 @@ public class BinaryTreesB {
 
         return Math.max(selfdia,Math.max(ldia, rdia));
     }
+
+    static class Info {
+        int dia;
+        int ht;
+
+        public Info ( int dia, int ht ) {
+            this.dia = dia;
+            this.ht = ht;
+        }
+    }
+
+    public static Info diameter2(Node root) { //approch 2  O(n)
+        if( root == null ) {
+            return new Info(0, 0);
+        }
+        Info leftInfo = diameter2(root.left);
+        Info rightInfo = diameter2(root.right);
+
+        int dia = Math.max(Math.max(leftInfo.dia, rightInfo.dia), leftInfo.ht+rightInfo.ht+1);
+        int ht = Math.max(leftInfo.ht, rightInfo.ht)+1;
+
+        return new Info(dia, ht);
+    }
    
 
     public static void main(String[] args) {
@@ -63,7 +86,7 @@ public class BinaryTreesB {
        root.right.left = new Node(6);
        root.right.right = new Node(7);
 
-       System.out.println(diameter(root));
+       System.out.println(diameter2(root).dia);
        
     }
 }
