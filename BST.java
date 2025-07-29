@@ -9,6 +9,7 @@ public class BST {
 
         Node(int data) {
             this.data = data;
+            this.left = this.right = null;
         }
     }
 
@@ -141,21 +142,36 @@ public class BST {
         return isVaildBST(root.left, min, root) && isVaildBST(root.right, root, max);
     }
 
+    public static Node mirror(Node root) {
+        if( root == null ) { 
+            return null;
+        }
+        Node leftMirror = mirror(root.left);
+        Node rightMirror = mirror(root.right);
+
+        root.left = rightMirror;
+        root.right = leftMirror;
+
+        return root;
+    }
+
+    public static void predorder(Node root) {
+        if( root ==  null ) {
+            return;
+        }
+        System.out.print(root.data+" ");
+        predorder(root.left);
+        predorder(root.right);
+    } 
     public static void main(String[] args) {
-        int values[] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
+        int values[] = {8, 5, 3, 6, 10, 11};
         Node root = null;
 
         for(int i=0; i<values.length; i++) {
             root = insert(root, values[i]);
         }
         
-        inorder(root);
-        System.out.println();
-
-        if(isVaildBST(root, null , null )) {
-            System.out.println("Valid BST");
-        } else {
-            System.out.println("Not vaild");
-        }
+        root = mirror(root);
+        predorder(root);
     }
 }
