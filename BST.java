@@ -112,6 +112,7 @@ public class BST {
         }
         System.out.println("Null");
     }
+
     public static void printRoot2Leaf(Node root, ArrayList<Integer> path) {
         if( root == null ) {
             return;
@@ -125,6 +126,21 @@ public class BST {
         path.remove(path.size()-1);
     }
 
+    public static boolean isVaildBST(Node root, Node min , Node max) {
+        if(root == null ) {
+            return true;
+        }
+
+        if(min != null && root.data <= min.data ) {
+            return false;
+        }
+        else if(max !=null && root.data >= max.data) {
+            return false;
+        }
+
+        return isVaildBST(root.left, min, root) && isVaildBST(root.right, root, max);
+    }
+
     public static void main(String[] args) {
         int values[] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
         Node root = null;
@@ -136,6 +152,10 @@ public class BST {
         inorder(root);
         System.out.println();
 
-        printRoot2Leaf(root, new ArrayList<>());
+        if(isVaildBST(root, null , null )) {
+            System.out.println("Valid BST");
+        } else {
+            System.out.println("Not vaild");
+        }
     }
 }
