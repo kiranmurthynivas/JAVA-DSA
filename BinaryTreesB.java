@@ -262,7 +262,7 @@ public class BinaryTreesB {
     return dist1 + dist2;
 }    
 
-public static int KAncestor(Node root, int n, int k ) {
+    public static int KAncestor(Node root, int n, int k ) {
         if(root == null ) {
             return -1;
         }
@@ -286,8 +286,32 @@ public static int KAncestor(Node root, int n, int k ) {
         return max+1;
     }
 
-   
+    public static int sumTree(Node root ) {
+        if( root == null ) {
+            return 0;
+        }
 
+        int leftChild = sumTree(root.left);
+        int rightChild = sumTree(root.right);
+
+        int data = root.data;
+        int newLeft = root.left == null ? 0 : root.left.data;
+        int newRight = root.right == null ? 0 : root.right.data;
+        root.data = newLeft+ leftChild + newRight + rightChild;
+
+        return data;
+
+    }
+
+    public static void preorder(Node root ) {
+        if(root == null ) {
+            return;
+        }
+
+        System.out.print(root.data+" ");
+        preorder(root.left);
+        preorder(root.right);
+    }
 
     public static void main(String[] args) {
        Node root = new Node(1);
@@ -298,7 +322,7 @@ public static int KAncestor(Node root, int n, int k ) {
        root.right.left = new Node(6);
        root.right.right = new Node(7);
 
-       int n = 4, k = 1;
-       KAncestor(root, n, k);
+       sumTree(root);
+       preorder(root);
     }
 }
