@@ -25,17 +25,21 @@ public class Heaps {
  
 
     public static void main(String[] args) {
-        int pts[][] = {{3, 3}, {5, -1}, {-2, 4}};
-        int k = 2;
+        int ropes[] = {2,3,3,4,6};
 
-        PriorityQueue<Point> pq = new PriorityQueue<>();
-        for(int i=0; i<pts.length; i++ ) {
-            int distSq = pts[i][0]*pts[i][0] + pts[i][1]*pts[i][1];
-            pq.add(new Point(pts[i][0], pts[i][1], distSq,i));
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int i=0; i<ropes.length; i++) {
+            pq.add(ropes[i]);
         }
 
-        for(int i=0; i<k; i++) {
-            System.out.println("C"+pq.remove().idx);
+        int cost = 0;
+        while(pq.size()>1) {
+            int min = pq.remove();
+            int min2 = pq.remove();
+            cost += min + min2;
+            pq.add(min+min2);
         }
+
+        System.out.println("Cost of connecting n ropes = "+ cost);
     }
 }
